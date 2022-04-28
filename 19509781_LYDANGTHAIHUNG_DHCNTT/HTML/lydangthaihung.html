@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lý Đặng Thái Hưng</title>
+    <link rel="stylesheet" href="../CSS/bootstrap.min.css">
+    <script src="../JS/jquery-3.6.0.min.js"></script>
+    <script src="../JS/bootstrap.min.js"></script>
+    <script src="../JS/index.js"></script>
+    <script>
+        $(document).ready(function(){
+            var i=1;
+            $("#btn2").click(function(){
+                $("#myModal").modal();
+            });
+            function ktten(){
+                let ten=/^([A-Z]{1}[a-z]+\s{1})*[A-Z]{1}[a-z]+$/;
+                if($("#txtten").val()=="")
+                {
+                    $("#tbten").html("không được rỗng");
+                    return false;
+                }
+               if(!ten.test($("#txtten").val())){
+                   $("#tbten").html("thông báo lỗi");
+                   return false;
+               }else
+                {
+                   $("#tbten").html("*");
+                }
+            }
+            $("#txtten").blur(ktten);
+            function ktao(){
+                var ao=/^\d*$/;
+                if($("#txtao").val()==""){
+                    $("#tbao").html("Không để rỗng.");
+                    return false;
+                }
+                if(!ao.test($("#txtao").val())){
+                    $("#tbao").html("Dùng từ số 1 đến số 20.");
+                    return false;
+                }else{ 
+                    var aonhap=$("#txtao").val();
+                    if(aonhap<1||aonhap>20){
+                        $("#tbao").html("từ 1 đến 20");
+                    }else{
+                        $("#tbao").html("*");
+                        return true;
+                    }
+                }
+            }
+            $("#txtao").blur(ktao);
+            function ktdiachi(){
+                var dc=/^([A-Z]{1}[a-z]+\s{1})*[A-Z]{1}[a-z]+\s{1}[0-9]*$/;
+                if($("#txtdc").val()==""){
+                    $("#tbdc").html("Không được rỗng");
+                    return false;
+                }
+                if(!dc.test($("#txtdc").val())){
+                    $("#tbdc").html("Mỗi ký tự đầu viết hoa.");
+                    return false;
+                }
+                $("#tbdc").html("*");
+                return true;
+            }
+            $("#txtdc").blur(ktdiachi);
+            function ktngay(){
+                if($("#txtngay").val()==""){
+                    $("#tbngay").html("Không được rỗng.");
+                    return false;
+                }
+                var today=new Date();
+                var ntt=new Date($("#txtngay").val());
+                today=today.setDate(today.getDate()+30);
+                if(today>ntt)
+                {
+                    $("#tbngay").html("Phải sau ngày hiện tại 30 ngày.");
+                    return false;
+                }
+                $("#tbngay").html("*");
+                return true;
+            }
+            $("#txtngay").blur(ktngay);
+            function ktsodt(){
+                var dt=/^(0)\d{2}-\d{3}-\d{4}$/;
+                if($("#txtdt").val()==""){
+                    $("#tbdt").html("Khôg được rỗng.");
+                    return false;
+                }
+                if(!dt.test($("#txtdt").val())){
+                    $("#tbdt").html("phải nhập bắt đầu từ số 0");
+                    return false;
+                }
+                $("#tbdt").html("*");
+                return true;
+            }
+            $("#txtdt").blur(ktsodt);
+            $("#save").click(function(){
+                if(!ktten()||!ktao()||!ktdiachi()||!ktngay()||!ktsodt()){
+                  alert("Mời bạn nhập đúng và đủ thông tin");
+                  return false;
+              }
+                    var i=0;
+                    var ten=$("#txtten").val();
+                    var ao=$("#txtao").val();
+                    var clb=$("#txtdc").val();
+                    var ngaytt= $("#txtngay").val();
+                    var dt=$("#txtdt").val();
+                    var hinh=$("#ADD").val();
+                   var row = "<tr><td>"+(i++)+"</td><td>"+ten+"</td><td>"+ao+"</td><td>"+clb+"</td><td>"+ngaytt+"</td><td>"+dt+"</td><td>"+hinh+"</td></tr>";
+                  $("#danhsach").append(row);
+                  $("#myModal").modal("hide");
+                
+            })
+
+        })
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <header class="col-xs-12">
+            <img src="../IMG/paner.jpg" width="100%">
+        </header>
+        <div class="col-xs-12">
+        <nav class="navbar navbar-expand-sm bg-light justify-content-center">
+            <ul class="navbar nav">
+                <li class="navbar-item"><a class="navbar-link" href="#" style="margin-right :20px;" id="btn1">Đăng nhập </a></li>
+                <li class="navbar-item"><a class="navbar-link" href="#" id="btn2">Đăng ký</a></li>
+            </ul>
+
+        </nav>
+    </div>
+    <div class="col-xs-12">
+     <h4 style="text-align :center;">DANH SÁCH ĐỘI TUYỂN VIỆT NAM</h4>
+     <table class="table table-triped" role="table" id="danhsach">
+         <tr>
+             <td>STT</td>
+             <td>Họ tên</td>
+             <td>Số Áo</td>
+             <td>Câu lạc bộ</td>
+             <td>Ngày tập trung</td>
+             <td>Điện thoại </td>
+             <td>Ảnh đại diện </td>
+         </tr>
+     </table>
+    </div>
+    <div class="col-xs-12">
+        <footer>
+            <p style="text-align:center;">19509781_Lý Đặng Thái Hưng_Lớp:DHHTTT15C </p>
+        </footer>
+    </div>
+</div>
+   
+    <div class="modal fade" role="dialog" id="myModal">
+        <div class="modal-dialog" style="margin-top:10px;">
+          <div class="modal-content">
+              <div class="modal-header ">
+                  <h2 class="text-left"> THÔNG TIN CÁ NHÂN</h2>
+              </div>
+              <div class="modal-body">
+                  <form role="form" class="form-horizontal" style="margin-top:10px"; >
+                    <div class="form-group">
+                        <label for="txtten">Họ tên</label>
+                        <div class="col-md-12">
+                            <input type="text" id="txtten" class="form-control">
+                            <span class="text-danger" id="tbten">*</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="txtao">Số Áo</label>
+                            <div class="col-md-12">
+                                <input type="text" id="txtao" class="form-control">
+                                <span class="text-danger" id="tbao">*</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="txtdc">Câu lạc bộ</label>
+                            <div class="col-md-12">
+                                <input type="text" id="txtdc" class="form-control">
+                                <span class="text-danger" id="tbdc">*</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="txtngay">Ngày tập trung</label>
+                            <div class="col-md-12">
+                                <input type="date" id="txtngay" class="form-control">
+                                <span class="text-danger" id="tbngay">*</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="txtdt">Số điện thoại</label>
+                            <div class="col-md-12">
+                                <input type="text" id="txtdt" class="form-control">
+                                <span class="text-danger" id="tbdt">*</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="ADD">Ảnh đại diện</label>
+                            <div class="col-md-12">
+                                <input type="file" id="ADD" class="form-control">
+                                <span class="text-danger" id="tbadd">*</span>
+                            </div>
+                        </div>
+                        <button class="btn btn-success btn-group-justified" id="save" type="button" style="color:white;background-color:green;width:100%;"> Lưu </button>
+                                        
+ 
+
+                    </div>
+
+                </form>
+              </div>
+          </div>        
+        </div>
+
+    </div>
+    
+</body>
+
+</html>
